@@ -1,0 +1,17 @@
+{
+  "name": "vite-project-demo",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "elm-tooling": "^1.4.1",
+    "vite": "^2.4.4"
+  },
+  "dependencies": {
+    "webnative": "^0.27.0",
+    "webnative-elm": "^6.0.0"
+  }
+}
