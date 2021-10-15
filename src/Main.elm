@@ -20,7 +20,7 @@ port webnativeResponse : (Webnative.Response -> msg) -> Sub msg
 
 appPermissions : Webnative.AppPermissions
 appPermissions =
-    { creator = "Verge"
+    { creator = "Trillian"
     , name = "fission-with-elm"
     }
 
