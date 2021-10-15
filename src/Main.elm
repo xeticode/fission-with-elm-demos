@@ -31,7 +31,7 @@ port signOut : () -> Cmd msg
 
 appPermissions : Webnative.AppPermissions
 appPermissions =
-    { creator = "Verge"
+    { creator = "Trillian"
     , name = "fission-with-elm"
     }
 
