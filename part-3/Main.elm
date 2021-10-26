@@ -143,7 +143,6 @@ update msg model =
 
         SignOut ->
             ( { model
-                | username = Nothing
                 , messages = "SignOut" :: model.messages
             }
             , Cmd.none 
@@ -161,6 +160,9 @@ update msg model =
               }
             , Cmd.none 
             )
+
+---------------------------------------- HELPER FUNCTIONS ----------------------------------------
+
 
 
 
