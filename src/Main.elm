@@ -101,7 +101,6 @@ subscriptions _ =
 
 
 ---------------------------------------- MODEL/UPDATE ----------------------------------------
--- Data central to the application. This application has no data.
 
 
 type alias Model =
