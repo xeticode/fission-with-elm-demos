@@ -16,7 +16,6 @@ import Webnative.Path as Path exposing (Path)
 import Wnfs
 
 
-
 ---------------------------------------- PORTS ----------------------------------------
 
 
@@ -29,13 +28,11 @@ port webnativeResponse : (Webnative.Response -> msg) -> Sub msg
 
 ---------------------------------------- FISSION SETUP ----------------------------------------
 
-
 appPermissions : Webnative.AppPermissions
 appPermissions =
     { creator = "Trillian"
     , name = "fission-with-elm"
     }
-
 
 fsPermissions : Webnative.FileSystemPermissions
 fsPermissions =
@@ -49,25 +46,16 @@ fsPermissions =
         }
     }
 
-
 permissions : Webnative.Permissions
 permissions =
     { app = Just appPermissions
     , fs = Just fsPermissions
     }
 
-
-
 ---------------------------------------- ELM SETUP ----------------------------------------
-
 
 type alias Flags =
     {}
-
-
-
--- The main function of the Elm program
-
 
 main : Program Flags Model Msg
 main =
@@ -79,7 +67,6 @@ main =
         , onUrlChange = UrlChanged
         , onUrlRequest = LinkClicked
         }
-
 
 
 -- Initializes the Model and sends and Cmd Msg's that should be sent upon
@@ -102,15 +89,12 @@ subscriptions _ =
 
 
 ---------------------------------------- MODEL/UPDATE ----------------------------------------
--- Data central to the application. This application has no data.
-
 
 type alias Model =
     { username : Maybe String
     , messages : List String
     , note : String
     }
-
 
 type Msg
     = UrlChanged Url.Url
@@ -120,7 +104,6 @@ type Msg
     | SignOut
     | UpdateNote String
     | SaveNote
-
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -165,10 +148,6 @@ update msg model =
 
 
 
-
----------------------------------------- VIEW ----------------------------------------
-
-
 checkUsername : Maybe String -> ( String, Bool )
 checkUsername m_username =
     case m_username of
@@ -177,6 +156,8 @@ checkUsername m_username =
 
         Nothing ->
             ( "Login", False )
+
+---------------------------------------- VIEW ----------------------------------------
 
 
 view : Model -> Browser.Document Msg
