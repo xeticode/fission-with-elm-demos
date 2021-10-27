@@ -234,7 +234,8 @@ update msg model =
             , webnativeRequest <| save model.note
             )
             
----------------------------------------- HELPERS ----------------------------------------
+---------------------------------------- HELPER FUNCTIONS ----------------------------------------
+
 tagFromString : String -> Result String Tag
 tagFromString str =
     case str of
@@ -269,13 +270,9 @@ save note =
         |> Json.Encode.encode 0
         |> Wnfs.writeUtf8
             Wnfs.Private
-            { path = Path.file [ "Apps", "Verge", "fission-with-elm", "notes", "note.json"]
+            { path = Path.file [ "Apps", "Trillian", "fission-with-elm", "notes", "note.json"]
             , tag = tagToString WriteNote
             }
-
-
----------------------------------------- VIEW ----------------------------------------
-
 
 checkUsername : Maybe String -> ( String, Bool )
 checkUsername m_username =
@@ -286,6 +283,8 @@ checkUsername m_username =
         Nothing ->
             ( "Login", False )
 
+
+---------------------------------------- VIEW ----------------------------------------
 
 view : Model -> Browser.Document Msg
 view model =
