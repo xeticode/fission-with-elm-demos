@@ -105,7 +105,7 @@ subscriptions _ =
 
 type alias Model =
     { username : Maybe String
-    , messages : List String
+    , logs : List String
     , note : String
     }
 
@@ -140,7 +140,7 @@ update msg model =
                         NotAuthorised ->
                             ( { model
                                 | username = Nothing
-                                , messages = "Auth: NotAuthorised" :: model.messages
+                                , logs = "Auth: NotAuthorised" :: model.logs
                             }
                             , Cmd.none
                             )
@@ -148,7 +148,7 @@ update msg model =
                         AuthSucceeded { username } ->
                             ( { model
                                 | username = Just username
-                                , messages =  "Auth: AuthSucceeded" :: model.messages
+                                , logs =  "Auth: AuthSucceeded" :: model.logs
                             }
                             , Cmd.none
                             )
@@ -156,7 +156,7 @@ update msg model =
                         AuthCancelled _ ->
                             ( { model
                                 | username = Nothing
-                                , messages = "Auth: AuthCancelled" :: model.messages
+                                , logs = "Auth: AuthCancelled" :: model.logs
                             }
                             , Cmd.none
                             )
@@ -164,14 +164,14 @@ update msg model =
                         Continuation { username } ->
                             ( { model
                                 | username = Just username
-                                , messages = "Auth: Continuation" :: model.messages
+                                , logs = "Auth: Continuation" :: model.logs
                             }
                             , Cmd.none
                             )
                 
                 Wnfs WriteNote _ ->
                     ( { model
-                        | messages = "Note Written..." :: model.messages
+                        | logs = "Note Written..." :: model.logs
                     }
                     , ({ tag = tagToString PublishNote }
                         |> Wnfs.publish
@@ -180,7 +180,7 @@ update msg model =
 
                 Wnfs PublishNote _ ->
                     ( {model
-                        | messages = "Note Published to Fission Drive!" :: model.messages
+                        | logs = "Note Published to Fission Drive!" :: model.logs
                       }
                     , Cmd.none
                     ) 
@@ -193,21 +193,21 @@ update msg model =
 
                 WebnativeError err ->              
                     ( { model
-                        | messages = Webnative.error err :: model.messages
+                        | logs = Webnative.error err :: model.logs
                     }
                     , Cmd.none
                     )
 
                 WnfsError err ->
                     ( { model
-                        | messages = Wnfs.error err :: model.messages
+                        | logs = Wnfs.error err :: model.logs
                     }
                     , Cmd.none
                     )
 
         SignIn ->
             ( { model
-                | messages = "SignIn" :: model.messages
+                | logs = "SignIn" :: model.logs
               }
             , permissions
                 |> Webnative.redirectToLobby Webnative.CurrentUrl
@@ -216,7 +216,7 @@ update msg model =
         SignOut ->
             ( { model
                 | username = Nothing
-                , messages = "SignOut" :: model.messages
+                , logs = "SignOut" :: model.logs
             }
             , signOut ()
             )
@@ -228,7 +228,7 @@ update msg model =
         SaveNote ->
             ( { model
                 | note = ""
-                , messages = "Saving Note..." :: model.messages
+                , logs = "Saving Note..." :: model.logs
               }
             , webnativeRequest <| save model.note
             )
@@ -357,7 +357,7 @@ baseLayer model username =
             [ E.width E.fill
             , E.height E.fill
             ]
-            [ leftColumn model.messages
+            [ leftColumn model.logs
             , centerColumn model
             , rightColumn
             ]
@@ -420,7 +420,7 @@ centerColumn model =
 
 
 leftColumn : List String -> E.Element Msg
-leftColumn messages =
+leftColumn logs =
     E.column
         [ E.height <| E.px 700
         , E.width <| E.fillPortion 1
@@ -428,11 +428,11 @@ leftColumn messages =
         , E.scrollbarY
         ]
     <|
-        List.map displayMessages messages
+        List.map displayLogs logs
 
 
-displayMessages : String -> E.Element Msg
-displayMessages message =
+displayLogs : String -> E.Element Msg
+displayLogs message =
     E.paragraph
         [ E.paddingXY 0 7
         ]
