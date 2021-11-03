@@ -92,7 +92,7 @@ subscriptions _ =
 
 type alias Model =
     { username : Maybe String
-    , messages : List String
+    , logs : List String
     , note : String
     }
 
@@ -119,14 +119,14 @@ update msg model =
 
         SignIn ->
             ( { model
-                | messages = "SignIn" :: model.messages
+                | logs = "SignIn" :: model.logs
               }
             , Cmd.none 
             )
 
         SignOut ->
             ( { model
-                , messages = "SignOut" :: model.messages
+                | logs = "SignOut" :: model.logs
             }
             , Cmd.none 
             )
@@ -139,7 +139,7 @@ update msg model =
         SaveNote ->
             ( { model
                 | note = ""
-                , messages = "Saving Note..." :: model.messages
+                , logs = "Saving Note..." :: model.logs
               }
             , Cmd.none 
             )
@@ -232,7 +232,7 @@ baseLayer model username =
             [ E.width E.fill
             , E.height E.fill
             ]
-            [ leftColumn model.messages
+            [ leftColumn model.logs
             , centerColumn model
             , rightColumn
             ]
@@ -295,7 +295,7 @@ centerColumn model =
 
 
 leftColumn : List String -> E.Element Msg
-leftColumn messages =
+leftColumn logs =
     E.column
         [ E.height <| E.px 700
         , E.width <| E.fillPortion 1
@@ -303,11 +303,11 @@ leftColumn messages =
         , E.scrollbarY
         ]
     <|
-        List.map displayMessages messages
+        List.map displayLogs logs
 
 
-displayMessages : String -> E.Element Msg
-displayMessages message =
+displayLogs : String -> E.Element Msg
+displayLogs message =
     E.paragraph
         [ E.paddingXY 0 7
         ]
