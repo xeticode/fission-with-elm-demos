@@ -4,9 +4,9 @@ import { Elm } from "/src/Main.elm"
 
 const app = Elm.Main.init({});
 
-app.ports.signOut.subscribe(() => {
-    webnative.leave({withoutRedirect:true});
-  });
+// app.ports.signOut.subscribe(() => {
+//     webnative.leave({withoutRedirect:true});
+//   });
 
 webnative.setup.debug({enabled:true});
 

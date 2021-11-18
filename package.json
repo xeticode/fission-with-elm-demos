@@ -8,10 +8,10 @@
   },
   "devDependencies": {
     "elm-tooling": "^1.4.1",
-    "vite": "^2.4.4"
+    "vite": "^2.4.4",
+    "webnative-elm": "^6.1.0"
   },
   "dependencies": {
-    "webnative": "^0.27.0",
-    "webnative-elm": "^6.0.0"
+    "webnative": "^0.27.0"
   }
 }

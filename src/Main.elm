@@ -24,7 +24,7 @@ port webnativeRequest : Webnative.Request -> Cmd msg
 
 port webnativeResponse : (Webnative.Response -> msg) -> Sub msg
 
-port signOut : () -> Cmd msg
+-- port signOut : () -> Cmd msg
 
 ---------------------------------------- FISSION SETUP ----------------------------------------
 
@@ -211,14 +211,16 @@ update msg model =
               }
             , permissions
                 |> Webnative.redirectToLobby Webnative.CurrentUrl
-                |> webnativeRequest )
+                |> webnativeRequest 
+            )
 
         SignOut ->
             ( { model
                 | username = Nothing
                 , logs = "SignOut" :: model.logs
             }
-            , signOut ()
+            , Webnative.signOut
+                |> webnativeRequest
             )
 
         UpdateNote str ->
