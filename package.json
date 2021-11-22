@@ -9,6 +9,7 @@
   "devDependencies": {
     "elm-tooling": "^1.4.1",
     "vite": "^2.4.4",
+    "vite-plugin-elm": "^2.5.0",
     "webnative-elm": "^6.1.0"
   },
   "dependencies": {
