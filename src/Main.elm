@@ -11,7 +11,7 @@ import Element.Input as I
 import Json.Decode
 import Json.Encode
 import Url
-import Webnative exposing (Artifact(..), DecodedResponse(..), State(..))
+import Webnative exposing (Artifact(..), NoArtifact(..), DecodedResponse(..), State(..))
 import Webnative.Path as Path exposing (Path)
 import Wnfs
 
@@ -186,6 +186,15 @@ update msg model =
                     ) 
 
                 
+                Webnative (Webnative.NoArtifact SignedOut) ->
+                    ( { model
+                        | logs = "Signed out!" :: model.logs
+                        , username = Nothing
+                    }
+                    , Cmd.none
+                    )
+
+                
                 Webnative (Webnative.NoArtifact _) ->
                     ( model
                     , Cmd.none
@@ -193,14 +202,14 @@ update msg model =
 
                 WebnativeError err ->              
                     ( { model
-                        | logs = Webnative.error err :: model.logs
+                        | logs = (Webnative.error err++ " here") :: model.logs
                     }
                     , Cmd.none
                     )
 
                 WnfsError err ->
                     ( { model
-                        | logs = Wnfs.error err :: model.logs
+                        | logs = (Wnfs.error err ++ " here") :: model.logs
                     }
                     , Cmd.none
                     )
@@ -216,8 +225,7 @@ update msg model =
 
         SignOut ->
             ( { model
-                | username = Nothing
-                , logs = "SignOut" :: model.logs
+                | logs = "Signing out..." :: model.logs
             }
             , Webnative.signOut
                 |> webnativeRequest
