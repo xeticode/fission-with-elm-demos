@@ -126,9 +126,10 @@ update msg model =
 
         SignOut ->
             ( { model
-                | logs = "SignOut" :: model.logs
+                | logs = "Signing out..." :: model.logs
             }
-            , Cmd.none 
+            , Webnative.signOut
+                |> webnativeRequest
             )
 
         UpdateNote str ->
